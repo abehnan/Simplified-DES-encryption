@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MyDes {
@@ -7,7 +8,6 @@ public class MyDes {
 		Scanner reader = new Scanner(System.in);
 		System.out.print("Please enter a two-digit positive integer number: ");
 		int key = reader.nextInt();
-//		System.out.println();
 		
 		if (key <= 9 || key >= 100) {
 			System.out.println("Invalid number. Exiting...");
@@ -16,6 +16,7 @@ public class MyDes {
 		}
 
 		int firstDigit = key / 10;
+		System.out.println("firstDigit: " + firstDigit);
 		char[][] T = new char[firstDigit][1000];
 		char[] A = new char[firstDigit * 1000];
 		char[] B = new char[(firstDigit+1) * 1000];
@@ -24,23 +25,34 @@ public class MyDes {
 		
 		// get a message
 		System.out.print("Please enter a message: ");
-		String message = reader.next();
+		reader.nextLine();
+		String message = reader.nextLine();
 		char[] messageArray = message.toCharArray();
-		reader.close();
-//		System.out.println();
 		
+		System.out.print("messageArray: ");
+		for (int i = 0; i < message.length(); i++) {
+			System.out.print(messageArray[i]);
+		}
+		System.out.println();
+		
+		
+		int row = 0;
+
 		if (message == null || message.isEmpty()) {
 			System.out.println("Invalid message. Exiting...");
 			System.exit(0);
 		}
 
-		// populate the 2D array with the message
-		for (int i = 0; i < firstDigit; i++) {
-			for (int j = 0; j < 1000; j++) {
-				if (i + j < message.length())
-					T[i][j] = messageArray[i + j];
-			}
+		// populate first 2D array
+		for (int i = 0; i < messageArray.length; i++) {
+			if (i > 0 && i % 1000 == 0)
+				row++;
+			T[row][i % 1000] = messageArray[i];
 		}
+
+	
+		System.out.print("T: " + Arrays.deepToString(T));
+		System.out.println();
 
 		// copy transpose of 2D array T into array A
 		for (int j = 0; j < 1000; j++) {
@@ -49,17 +61,23 @@ public class MyDes {
 			}
 		}
 
+		System.out.println("A: " + A.toString());
+
 		// apply Caesar cipher to A and store into B
 		for (int i = 0; i < A.length; i++) {
-			B[i] = (char) (A[i] + key);
+			// if (A[i] != 0)
+				B[i] = (char) (A[i] + key);
 		}
 
-		// populate the 2D array T2 with the contents of B
-		for (int i = 0; i < firstDigit + 1; i++) {
-			for (int j = 0; j < 1000; j++) {
-				T2[i][j] = B[i + j];
-			}
+		System.out.println("B: " + B.toString());
+
+		// populate second 2D array
+		for (int i = 0; i < B.length; i++) {
+			if (i > 0 && i % 1000 == 0)
+				row++;
+			T2[row][i % 1000] = B[i];
 		}
+	
 		
 		// copy transpose of 2D array T2 into array C
 		for (int j = 0; j < 1000; j++) {
@@ -69,7 +87,7 @@ public class MyDes {
 		}
 		
 		System.out.println("The encrypted string is: " + C.toString());
-
+		reader.close();
 		System.exit(0);
 	}
 }
