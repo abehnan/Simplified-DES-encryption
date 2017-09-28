@@ -3,14 +3,6 @@ import java.util.Scanner;
 
 public class MyDes {
 
-	public static char[][] transposeMatrix(char[][] m) {
-		char[][] temp = new char[m[0].length][m.length];
-		for (int i = 0; i < m.length; i++)
-			for (int j = 0; j < m[0].length; j++)
-				temp[j][i] = m[i][j];
-		return temp;
-	}
-	
 	private static char[] encrypt(int key, String input) {
 		
 		char[] message = input.toCharArray();
@@ -139,6 +131,7 @@ public class MyDes {
 
 	public static void main(String[] args) {
 
+		System.out.println("~~~~~~~~~~~~~~~~  MyDes Starting  ~~~~~~~~~~~~~~~~");
 		// get a number
 		Scanner reader = new Scanner(System.in);
 		System.out.print("Please enter a two-digit positive integer number: ");
@@ -162,12 +155,14 @@ public class MyDes {
 
 		char[] encrypted = encrypt(key, input);
 		String encryptedString = String.valueOf(encrypted);
-		System.out.println("The encryped message C is: " + encryptedString);
+		System.out.println("\nThe encryped message C is: " + encryptedString);
 		
 		char[] decrypted = decrypt(key, encryptedString);
 		String decryptedString = String.valueOf(decrypted);
-		System.out.println("The decrypted message is:" + decryptedString);
+		System.out.println("\nThe decrypted message is:" + decryptedString);
 		
+		System.out.println("~~~~~~~~~~~~~~~~  MyDes Exiting  ~~~~~~~~~~~~~~~~");
+
 		reader.close();
 		System.exit(0);
 	}
