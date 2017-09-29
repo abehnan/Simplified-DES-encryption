@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class MyDes {
@@ -69,7 +68,7 @@ public class MyDes {
 		
 		char[] C = input.toCharArray();
 		int firstDigit = key / 10;
-		int row, col;
+		int row;
 		int maxLen = (firstDigit+1) * 1000;
 		char[] B = new char[maxLen];
 		char[] A = new char[maxLen];
